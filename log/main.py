@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 from log import models
 from log.database import engine
-from log.routers import users, visitors, logs
+from log.routers import users, visitors, logs, auth
 from log.database import get_db
 
 app = FastAPI()
@@ -15,6 +15,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(users.router)
 app.include_router(logs.router)
 app.include_router(visitors.router)
+app.include_router(auth.router)
 models.Base.metadata.create_all(engine)
 
 

@@ -1,8 +1,7 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from starlette import status
-from log import models
 from log.database import get_db
 from log.repository import logs
 from log.schemas import LogOut, LogIn
