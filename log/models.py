@@ -16,23 +16,17 @@ class Visitor(TimeStamped):
     first_name = Column(String(50))
     last_name = Column(String(50))
     middle_name = Column(String(50), nullable=True)
-    visits = relationship('Log', secondary='visitors_logs', order_by='desc(Log.visited_at)', lazy='dynamic')
+    logs = relationship('Log', back_populates='visitor')
 
 
 class Log(TimeStamped):
     __tablename__ = 'logs'
     id = Column(Integer, primary_key=True, autoincrement=True)
     visited_at = Column(DateTime(timezone=True), default=datetime.utcnow)
-    visitors = relationship('Visitor', secondary='visitors_logs', order_by='desc(Visitor.last_name)', lazy='dynamic')
-
-
-class VisitorLog(TimeStamped):
-    __tablename__ = 'visitors_logs'
-    __table_args__ = (PrimaryKeyConstraint('log_id', 'visitor_id'),)
-    log_id = Column(Integer, ForeignKey('visitors.id'))
-    visitor_id = Column(Integer, ForeignKey('logs.id'))
     # can be changed on Money type via "from sqlalchemy.dialects.postgresql import *"
     payment = Column(Integer)
+    visitor_id = Column(Integer, ForeignKey('visitors.id'))
+    visitor = relationship('Visitor', back_populates='logs')
 
 
 class User(TimeStamped):

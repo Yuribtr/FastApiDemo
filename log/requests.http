@@ -1,3 +1,5 @@
+# GET SECTION
+
 GET http://localhost:8000/visitors/
 
 ###
@@ -10,20 +12,28 @@ GET http://localhost:8000/visitors/1
 
 ###
 
+GET http://localhost:8000/visitors/100000
+
+###
+
 GET http://localhost:8000/users/1
 
 ###
 
-GET http://localhost:8000/visitors/100000
+GET http://localhost:8000/logs/
+
+###
+
+GET http://localhost:8000/logs/1
 
 ###
 
 POST http://localhost:8000/visitors/
 
 {
-  "first_name": "Петр3",
-  "last_name": "Петров3",
-  "middle_name": "Петрович3"
+  "first_name": "Петр",
+  "last_name": "Петров",
+  "middle_name": "Петрович"
 }
 
 ###
@@ -38,6 +48,16 @@ POST http://localhost:8000/users/
 
 ###
 
+POST http://localhost:8000/logs/
+
+{
+  "visitor_id": 1,
+  "payment": 600,
+  "visited_at": "2021-02-27 12:05"
+}
+
+###
+
 DELETE http://localhost:8000/visitors/7
 
 ###
@@ -45,7 +65,7 @@ DELETE http://localhost:8000/visitors/7
 PUT http://localhost:8000/visitors/1
 
 {
-  "first_name": "Ivan4",
-  "last_name": "Ivanov4",
-  "middle_name": "Ivanovich4"
+  "first_name": "Ivan",
+  "last_name": "Ivanov",
+  "middle_name": "Ivanovich"
 }
