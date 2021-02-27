@@ -15,6 +15,6 @@ In this demo you can find following:
 - Requests for handy usage in Pycharm Pro or VSCode
 - Example of one-to-many relations between Visitor and Log entities
 - Separate routers for different entities 
-- JWT authentication
+- JWT authentication and defence API methods from unauthorized access
 
 #### When using in production please generate new SECRET_KEY at token.py using `openssl rand -hex 32`
