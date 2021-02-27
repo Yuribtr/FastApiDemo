@@ -31,7 +31,7 @@ def get_db():
 
 # SIMPLE START PAGE
 @app.get('/', response_class=HTMLResponse)
-async def get(request: Request, db: Session = Depends(get_db)):
+async def home_page(request: Request, db: Session = Depends(get_db)):
     message = 'Check out our API'
     visitors = db.query(models.Visitor).all()
     return templates.TemplateResponse('index.html', {'request': request, 'message': message, 'visitors': visitors})
@@ -40,8 +40,7 @@ async def get(request: Request, db: Session = Depends(get_db)):
 # GET SECTION
 @app.get('/visitors', status_code=status.HTTP_200_OK)
 def get_visitors(offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    # visitors = db.query(models.Visitor).limit(limit).offset(offset)
-    visitors = db.query(models.Visitor).all()
+    visitors = db.query(models.Visitor).limit(limit).offset(offset).all()
     return visitors
 
 
