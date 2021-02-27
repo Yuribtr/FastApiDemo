@@ -70,8 +70,6 @@ def update_visitor_by_id(id: int, visitor: Visitor, db: Session = Depends(get_db
     matched_visitor = db.query(models.Visitor).filter(models.Visitor.id == id)
     if not matched_visitor.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Visitor with id "{id}" was not found')
-    # todo: insert updated time
-    # visitor.updated_at = datetime.now()
     matched_visitor.update(visitor, synchronize_session=False)
     db.commit()
     return {'detail': f'Visitor with id "{id}" updated'}

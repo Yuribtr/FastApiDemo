@@ -7,7 +7,7 @@ from .database import Base
 class TimeStamped(Base):
     __abstract__ = True
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
-    updated_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+    updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.now)
 
 
 class Visitor(TimeStamped):
@@ -19,7 +19,7 @@ class Visitor(TimeStamped):
     visits = relationship('Log', secondary='visitors_logs', order_by='desc(Log.visited_at)', lazy='dynamic')
 
 
-class Log(Base):
+class Log(TimeStamped):
     __tablename__ = 'logs'
     id = Column(Integer, primary_key=True, autoincrement=True)
     visited_at = Column(DateTime(timezone=True), default=datetime.utcnow)
