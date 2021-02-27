@@ -1,4 +1,6 @@
 from datetime import datetime
+from typing import List
+
 from fastapi import FastAPI, Depends, Response, HTTPException
 from sqlalchemy.dialects.postgresql import psycopg2
 from sqlalchemy.orm import Session
@@ -10,7 +12,7 @@ from starlette.staticfiles import StaticFiles
 
 from log import models
 from log.database import engine, SessionLocal
-from log.schemas import Visitor
+from log.schemas import VisitorInput, VisitorOutput
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -38,13 +40,13 @@ async def home_page(request: Request, db: Session = Depends(get_db)):
 
 
 # GET SECTION
-@app.get('/visitors', status_code=status.HTTP_200_OK)
+@app.get('/visitors', status_code=status.HTTP_200_OK, response_model=List[VisitorOutput])
 def get_visitors(offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     visitors = db.query(models.Visitor).limit(limit).offset(offset).all()
     return visitors
 
 
-@app.get('/visitors/{id}', status_code=status.HTTP_200_OK)
+@app.get('/visitors/{id}', status_code=status.HTTP_200_OK, response_model=VisitorOutput)
 def get_visitor_by_id(id: int, db: Session = Depends(get_db)):
     visitor = db.query(models.Visitor).filter(models.Visitor.id == id).first()
     if not visitor:
@@ -54,7 +56,7 @@ def get_visitor_by_id(id: int, db: Session = Depends(get_db)):
 
 # CREATE SECTION
 @app.post('/visitors', status_code=status.HTTP_201_CREATED)
-def create_visitor(visitor: Visitor, db: Session = Depends(get_db)):
+def create_visitor(visitor: VisitorInput, db: Session = Depends(get_db)):
     new_visitor = models.Visitor(first_name=visitor.first_name, last_name=visitor.last_name,
                                  middle_name=visitor.middle_name)
     db.add(new_visitor)
@@ -65,7 +67,7 @@ def create_visitor(visitor: Visitor, db: Session = Depends(get_db)):
 
 # UPDATE SECTION
 @app.put('/visitors/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update_visitor_by_id(id: int, visitor: Visitor, db: Session = Depends(get_db)):
+def update_visitor_by_id(id: int, visitor: VisitorInput, db: Session = Depends(get_db)):
     matched_visitor = db.query(models.Visitor).filter(models.Visitor.id == id)
     if not matched_visitor.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Visitor with id "{id}" was not found')

@@ -2,7 +2,11 @@ GET http://localhost:8000/visitors/
 
 ###
 
-GET http://localhost:8000/visitors?offset=10&limit=5
+GET http://localhost:8000/visitors?offset=5&limit=5
+
+###
+
+GET http://localhost:8000/visitors/1
 
 ###
 
