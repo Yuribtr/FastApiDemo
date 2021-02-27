@@ -6,16 +6,19 @@ from log import models
 from log.database import get_db
 from log.schemas import LogOut, LogIn
 
-router = APIRouter()
+router = APIRouter(
+    tags=['Logs'],
+    prefix='/logs'
+)
 
 
-@router.get('/logs', status_code=status.HTTP_200_OK, response_model=List[LogOut], tags=['Logs'])
+@router.get('/', status_code=status.HTTP_200_OK, response_model=List[LogOut])
 def get_logs(offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     logs = db.query(models.Log).limit(limit).offset(offset).all()
     return logs
 
 
-@router.get('/logs/{id}', status_code=status.HTTP_200_OK, response_model=LogOut, tags=['Users'])
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=LogOut)
 def get_log_by_id(id: int, db: Session = Depends(get_db)):
     log = db.query(models.Log).filter(models.Log.id == id).first()
     if not log:
@@ -23,7 +26,7 @@ def get_log_by_id(id: int, db: Session = Depends(get_db)):
     return log
 
 
-@router.post('/logs', status_code=status.HTTP_201_CREATED, tags=['Logs'])
+@router.post('/', status_code=status.HTTP_201_CREATED)
 def create_log(log: LogIn, db: Session = Depends(get_db)):
     visitor = db.query(models.Visitor).filter(models.Visitor.id == log.visitor_id).first()
     if not visitor:

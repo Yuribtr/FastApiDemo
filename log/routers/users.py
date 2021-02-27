@@ -6,10 +6,13 @@ from log.database import get_db
 from log.hashing import Hash
 from log.schemas import UserOut, UserIn
 
-router = APIRouter()
+router = APIRouter(
+    tags=['Users'],
+    prefix='/users'
+)
 
 
-@router.get('/users/{id}', status_code=status.HTTP_200_OK, response_model=UserOut, tags=['Users'])
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=UserOut)
 def get_user_by_id(id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == id).first()
     if not user:
@@ -17,7 +20,7 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     return user
 
 
-@router.post('/users', status_code=status.HTTP_201_CREATED, response_model=UserOut, tags=['Users'])
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=UserOut)
 def create_visitor(user: UserIn, db: Session = Depends(get_db)):
     new_user = models.User(name=user.name, email=user.email,
                            password=Hash.bcrypt(pasword=user.password))
