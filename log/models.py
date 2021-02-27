@@ -1,13 +1,13 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, PrimaryKeyConstraint, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, PrimaryKeyConstraint, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
 from .database import Base
 
 
 class TimeStamped(Base):
     __abstract__ = True
-    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
-    updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.now)
+    created_at = Column(DateTime(timezone=True), default=func.now())
+    updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
 
 
 class Visitor(TimeStamped):
