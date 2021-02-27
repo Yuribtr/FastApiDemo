@@ -1,12 +1,13 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, PrimaryKeyConstraint, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
 from .database import Base
 
 
 class TimeStamped(Base):
     __abstract__ = True
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+    updated_at = Column(DateTime(timezone=True), default=datetime.utcnow)
 
 
 class Visitor(TimeStamped):
@@ -15,20 +16,20 @@ class Visitor(TimeStamped):
     first_name = Column(String(20))
     last_name = Column(String(20))
     middle_name = Column(String(20), nullable=True)
+    visits = relationship('Log', secondary='visitors_logs', order_by='desc(Log.visited_at)', lazy='dynamic')
 
 
 class Log(Base):
     __tablename__ = 'logs'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    visited_at = Column(DateTime, default=datetime.utcnow)
+    visited_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+    visitors = relationship('Visitor', secondary='visitors_logs', order_by='desc(Visitor.last_name)', lazy='dynamic')
 
 
-class GenreMusician(TimeStamped):
-    __tablename__ = 'logs_visitors'
-    # здесь мы объявляем составной ключ, состоящий из двух полей
+class VisitorLog(TimeStamped):
+    __tablename__ = 'visitors_logs'
     __table_args__ = (PrimaryKeyConstraint('log_id', 'visitor_id'),)
-    # В промежуточной таблице явно указываются что следующие поля являются внешними ключами
     log_id = Column(Integer, ForeignKey('visitors.id'))
     visitor_id = Column(Integer, ForeignKey('logs.id'))
-    # тип поля может быть заменен на Money через "from sqlalchemy.dialects.postgresql import *"
+    # can be changed on Money type via "from sqlalchemy.dialects.postgresql import *"
     payment = Column(Integer)

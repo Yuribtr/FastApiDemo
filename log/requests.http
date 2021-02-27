@@ -1,0 +1,29 @@
+GET http://localhost:8000/visitors/
+
+###
+
+GET http://localhost:8000/visitors/100000
+
+###
+
+POST http://localhost:8000/visitors/
+
+{
+  "first_name": "Петр",
+  "last_name": "Петров",
+  "middle_name": "Петрович"
+}
+
+###
+
+DELETE http://localhost:8000/visitors/7
+
+###
+
+PUT http://localhost:8000/visitors/4
+
+{
+  "first_name": "Ivan4",
+  "last_name": "Ivanov4",
+  "middle_name": "Ivanovich4"
+}

@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>FastApi demo</title>
+</head>
+<body>
+<h1><a href="docs">{{ message }}</a></h1>
+    {% if visitors %}
+        {% for visitor in visitors %}
+            <div>{{ visitor.first_name }} {{ visitor.middle_name }} {{ visitor.last_name }}</div>
+        {% endfor %}
+    {% else %}
+    <div>Visitors not found</div>
+    {% endif %}
+</body>
+</html>
