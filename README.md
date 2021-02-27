@@ -13,3 +13,4 @@ In this demo you can find following:
 - Connection to Postgres DB using sessions and ORM
 - Password hashing
 - Requests for handy usage in Pycharm Pro or VSCode
+- Example of one-to-many relations between Visitor and Log entities

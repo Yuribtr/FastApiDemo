@@ -36,7 +36,17 @@
         <h1>Visitors list</h1>
     {% if visitors %}
         {% for visitor in visitors %}
-            <div>- {{ visitor.first_name }} {{ visitor.middle_name }} {{ visitor.last_name }}</div>
+            <div class="mt-1">
+                - {{ visitor.first_name }} {{ visitor.middle_name }} {{ visitor.last_name }}
+                {% if visitor.logs %}
+                <ul>
+                    <li>Payments:</li>
+                    {% for log in visitor.logs %}
+                      <li>{{log.payment}} at {{log.visited_at.strftime('%H:%m %d.%m.%Y')}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
         {% endfor %}
     {% else %}
     <div>Visitors not found</div>
