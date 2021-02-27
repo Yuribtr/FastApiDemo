@@ -16,14 +16,15 @@
     </nav>
 
     <div class="row text-center">
-        <h1><a href="docs">{{ message }}</a></h1>
+        <h1>Visitors list</h1>
     {% if visitors %}
         {% for visitor in visitors %}
-            <div>{{ visitor.first_name }} {{ visitor.middle_name }} {{ visitor.last_name }}</div>
+            <div>- {{ visitor.first_name }} {{ visitor.middle_name }} {{ visitor.last_name }}</div>
         {% endfor %}
     {% else %}
     <div>Visitors not found</div>
     {% endif %}
+        <a href="docs" class="mt-5">{{ message }}</a>
     </div>
 </div>
 
