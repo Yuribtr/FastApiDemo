@@ -41,8 +41,8 @@ POST http://localhost:8000/visitors/
 POST http://localhost:8000/users/
 
 {
-  "name": "John Doe2",
-  "email": "example2@example.com",
+  "name": "John Doe3",
+  "email": "example3@example.com",
   "password": "12345"
 }
 
