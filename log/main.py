@@ -6,12 +6,15 @@ from starlette import status
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from starlette.staticfiles import StaticFiles
+
 from log import models
 from log.database import engine, SessionLocal
 from log.schemas import Visitor
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # make migrations
 models.Base.metadata.create_all(engine)

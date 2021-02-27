@@ -1,9 +1,21 @@
 <html>
 <head>
     <title>FastApi demo</title>
+    <link href="{{ url_for('static', path='/bootstrap.css') }}" rel="stylesheet">
 </head>
 <body>
-<h1><a href="docs">{{ message }}</a></h1>
+<div class="container">
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="{{ url_for('static', path='/icon-white.svg') }}" alt="" width="30" height="24" class="d-inline-block align-top">
+          FastAPI
+        </a>
+      </div>
+    </nav>
+
+    <div class="row text-center">
+        <h1><a href="docs">{{ message }}</a></h1>
     {% if visitors %}
         {% for visitor in visitors %}
             <div>{{ visitor.first_name }} {{ visitor.middle_name }} {{ visitor.last_name }}</div>
@@ -11,5 +23,11 @@
     {% else %}
     <div>Visitors not found</div>
     {% endif %}
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', path='/bootstrap.bundle.min.js') }}"></script>
+
 </body>
 </html>
