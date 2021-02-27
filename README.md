@@ -8,5 +8,8 @@ For start demo:
 
 In this demo you can find following:
 - CRUD examples
+- Filtering with validation of input and output fields in API
+- Offset and limits available for entities list
 - Connection to Postgres DB using sessions and ORM
-- Prepared requests for handy usage in Pycharm Pro or VSCode
+- Password hashing
+- Requests for handy usage in Pycharm Pro or VSCode

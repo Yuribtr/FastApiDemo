@@ -2,11 +2,15 @@ GET http://localhost:8000/visitors/
 
 ###
 
-GET http://localhost:8000/visitors?offset=5&limit=5
+GET http://localhost:8000/visitors?offset=0&limit=5
 
 ###
 
 GET http://localhost:8000/visitors/1
+
+###
+
+GET http://localhost:8000/users/1
 
 ###
 
@@ -20,6 +24,16 @@ POST http://localhost:8000/visitors/
   "first_name": "Петр3",
   "last_name": "Петров3",
   "middle_name": "Петрович3"
+}
+
+###
+
+POST http://localhost:8000/users/
+
+{
+  "name": "John Doe",
+  "email": "example@example.com",
+  "password": "12345"
 }
 
 ###

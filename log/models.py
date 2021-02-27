@@ -13,9 +13,9 @@ class TimeStamped(Base):
 class Visitor(TimeStamped):
     __tablename__ = 'visitors'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    first_name = Column(String(20))
-    last_name = Column(String(20))
-    middle_name = Column(String(20), nullable=True)
+    first_name = Column(String(50))
+    last_name = Column(String(50))
+    middle_name = Column(String(50), nullable=True)
     visits = relationship('Log', secondary='visitors_logs', order_by='desc(Log.visited_at)', lazy='dynamic')
 
 
@@ -33,3 +33,12 @@ class VisitorLog(TimeStamped):
     visitor_id = Column(Integer, ForeignKey('logs.id'))
     # can be changed on Money type via "from sqlalchemy.dialects.postgresql import *"
     payment = Column(Integer)
+
+
+class User(TimeStamped):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(50))
+    email = Column(String(50), unique=True)
+    # https://security.stackexchange.com/a/39851
+    password = Column(String(72))

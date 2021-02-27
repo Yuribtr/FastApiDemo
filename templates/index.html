@@ -5,16 +5,33 @@
 </head>
 <body>
 
-<div class="container">
-    <nav class="navbar navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img src="{{ url_for('static', path='/icon-white.svg') }}" alt="" width="30" height="24" class="d-inline-block align-top">
-          FastAPI demo
-        </a>
-      </div>
-    </nav>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="{{ url_for('static', path='/icon-white.svg') }}" alt="" width="30" height="24" class="d-inline-block">
+      FastAPI demo
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="docs">Demo documentation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://fastapi.tiangolo.com/">FastAPI Documentation</a>
+        </li>
+      </ul>
+    </div>
 
+  </div>
+</nav>
+
+<div class="container">
     <div class="row text-center">
         <h1>Visitors list</h1>
     {% if visitors %}
