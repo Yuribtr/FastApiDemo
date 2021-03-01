@@ -22,7 +22,7 @@ class Visitor(TimeStamped):
 class Log(TimeStamped):
     __tablename__ = 'logs'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    visited_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+    visited_at = Column(DateTime(timezone=True), default=func.now())
     # can be changed on Money type via "from sqlalchemy.dialects.postgresql import *"
     payment = Column(Integer)
     visitor_id = Column(Integer, ForeignKey('visitors.id'))

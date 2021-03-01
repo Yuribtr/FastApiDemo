@@ -14,7 +14,7 @@ def get_user_by_id(id: int, db: Session):
     return user
 
 
-def create_visitor(user: UserIn, db: Session = Depends(get_db)):
+def create_user(user: UserIn, db: Session = Depends(get_db)):
     new_user = models.User(name=user.name, email=user.email,
                            password=Hash.bcrypt(pasword=user.password))
     db.add(new_user)
